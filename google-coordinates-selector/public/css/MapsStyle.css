@@ -1,0 +1,13 @@
+#map {
+    height: 80vh;
+}
+
+html, body {
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+#coords {
+    margin: 2vh;
+}

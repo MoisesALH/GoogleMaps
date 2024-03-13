@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Maps Example</title>
+    <link rel="stylesheet" href="{{ asset('css/MapsStyle.css') }}">
+</head>
+<body>
+    <div id="map"></div>
+    <label for="lat">Latitude:</label><input type="text" name="lat" id="lat">
+    <label for="lng">Longitude:</label><input type="text" name="lng" id="lng">
+
+    <script src="{{ asset('js/MapsModel.js') }}"></script>
+    <script>
+        function initMap() {
+            let mapHandler  = new MapsHandler();
+            mapHandler.initialize();
+        }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}&callback=initMap&libraries=places"></script>
+</body>
+</html>
