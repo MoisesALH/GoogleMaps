@@ -1,0 +1,27 @@
+.map-component {
+  display: flex;
+  align-items: start;
+  gap: 20px;
+}
+.map-component__coordinates {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.map-component__map {
+  border-radius: 15px;
+  width: 200px;
+  max-height: 200px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.map-component__label {
+  font-weight: bold;
+  color: #333;
+}
+.map-component__input {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/*# sourceMappingURL=MapComponentStyles.css.map */

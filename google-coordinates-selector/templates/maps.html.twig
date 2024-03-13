@@ -5,13 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Google Maps Example</title>
     <link rel="stylesheet" href="{{ asset('css/MapsStyle.css') }}">
+    <link rel="stylesheet" href="{{ asset('scss/MapComponentStyles.css') }}">
+
 </head>
 <body>
-    <div id="container">
-        <div id="map"></div>
-        <label for="lat">Latitude:</label><input type="text" name="lat" id="lat">
-        <label for="lng">Longitude:</label><input type="text" name="lng" id="lng">
+    <div class="map-component">
+        <div id="map" class="map-component__map"></div>
+        <div class="map-component__coordinates">
+            <label for="lat" class="map-component__label">Latitude:</label>
+            <input type="text" name="lat" id="lat" class="map-component__input">
+            <label for="lng" class="map-component__label">Longitude:</label>
+            <input type="text" name="lng" id="lng" class="map-component__input">
+        </div>
     </div>
+
 
     <script src="{{ asset('js/MapsModel.js') }}"></script>
     <script>

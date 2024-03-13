@@ -1,0 +1,31 @@
+$map-width: 200px;
+$map-height: 200px;
+.map-component {
+  display: flex;
+  align-items: start;
+  gap: 20px;
+
+  &__coordinates {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__map {
+    border-radius: 15px;
+    width: $map-width;
+    max-height: $map-height;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  &__label {
+    font-weight: bold;
+    color: #333;
+  }
+
+  &__input {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+}
