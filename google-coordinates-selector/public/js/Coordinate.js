@@ -1,6 +1,6 @@
-class Coordinate {
-    constructor(x = 51, y = 17) {
-        this.x = x;
-        this.y = y;
+export class Coordinate {
+    constructor(lat = 51, lng = 17) {
+        this.lat = lat;
+        this.lng = lng;
     }
 }

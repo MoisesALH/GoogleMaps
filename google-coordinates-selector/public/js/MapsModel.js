@@ -1,40 +1,41 @@
 class MapsHandler {
-    constructor(map = null, marker = null, latInput = document.getElementById("lat"), lngInput = document.getElementById("lng")) {
+    constructor(map = null, latInput = document.getElementById("lat"), lngInput = document.getElementById("lng")) {
         this.map = map;
-        this.marker = marker;
         this.latInput = latInput;
         this.lngInput = lngInput;
     }
 
-    initialize() {
-        this.latInput.value = 51;
-        this.lngInput.value = 17;
+    initialize(callback) {
+        let marker ;
+        this.latInput.value = 51.10616722826697;
+        this.lngInput.value = 17.07296641485615;
 
         const mapOptions = {
             center: new google.maps.LatLng(this.latInput.value, this.lngInput.value),
-            zoom: 4
+            zoom: 15,
+            styles: mapStyle,
         };
 
         this.map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
-        // Hacer el marcador no arrastrable ya que siempre estará en el centro
-        this.marker = new google.maps.Marker({
+        marker = new google.maps.Marker({
             position: this.map.getCenter(),
             map: this.map,
-            draggable: false // Marcador no arrastrable
+            draggable: false
+        });
+
+        this.map.addListener('zoom_changed', () => {
+            this.map.setCenter(this.map.getCenter());
         });
 
         // Evento al finalizar arrastre del mapa, para actualizar inputs
-        google.maps.event.addListener(this.map, 'center_changed', () => {
+        this.map.addListener( 'center_changed', () => {
             let center = this.map.getCenter();
-            this.marker.setPosition(center);
+            marker.setPosition(center);
             this.updateInputs(center.lat(), center.lng());
         });
 
-        // Eliminar el listener de evento de arrastre del marcador
-
-        // Evento de clic en el mapa para actualizar solo los inputs, el marcador se actualiza con el evento center_changed
-        google.maps.event.addListener(this.map, 'click', (event) => {
+        this.map.addListener('click', (event) => {
             this.map.panTo(event.latLng);
         });
 
@@ -52,7 +53,154 @@ class MapsHandler {
         let lng = parseFloat(this.lngInput.value);
         let position = new google.maps.LatLng(lat, lng);
 
-        // Ahora esto solo moverá el centro del mapa, el marcador se reposicionará automáticamente.
         this.map.setCenter(position);
     }
 }
+
+
+    const mapStyle = [
+    {
+        "featureType": "all",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "color": "#202c3e"
+            }
+        ]
+    },
+    {
+        "featureType": "all",
+        "elementType": "labels.text.fill",
+        "stylers": [
+            {
+                "gamma": 0.01
+            },
+            {
+                "lightness": 20
+            },
+            {
+                "weight": "1.39"
+            },
+            {
+                "color": "#ffffff"
+            }
+        ]
+    },
+    {
+        "featureType": "all",
+        "elementType": "labels.text.stroke",
+        "stylers": [
+            {
+                "weight": "0.96"
+            },
+            {
+                "saturation": "9"
+            },
+            {
+                "visibility": "on"
+            },
+            {
+                "color": "#000000"
+            }
+        ]
+    },
+    {
+        "featureType": "all",
+        "elementType": "labels.icon",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "landscape",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "lightness": 30
+            },
+            {
+                "saturation": "9"
+            },
+            {
+                "color": "#14294d"
+            }
+        ]
+    },
+    {
+        "featureType": "poi",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "saturation": 20
+            }
+        ]
+    },
+    {
+        "featureType": "poi.park",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "lightness": 20
+            },
+            {
+                "saturation": -20
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "lightness": 10
+            },
+            {
+                "saturation": -30
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "color": "#091c3e"
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "geometry.stroke",
+        "stylers": [
+            {
+                "saturation": 25
+            },
+            {
+                "lightness": 25
+            },
+            {
+                "weight": "0.01"
+            }
+        ]
+    },
+    {
+        "featureType": "water",
+        "elementType": "all",
+        "stylers": [
+            {
+                "lightness": -20
+            }
+        ]
+    },
+    {
+        "featureType": "water",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "color": "#000b1d"
+            }
+        ]
+    },
+]

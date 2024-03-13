@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class mapsController extends AbstractController
+class MapsController extends AbstractController
 {
     /**
      * @Route("/", name="map_page")

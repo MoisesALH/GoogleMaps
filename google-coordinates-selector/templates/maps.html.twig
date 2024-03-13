@@ -7,9 +7,11 @@
     <link rel="stylesheet" href="{{ asset('css/MapsStyle.css') }}">
 </head>
 <body>
-    <div id="map"></div>
-    <label for="lat">Latitude:</label><input type="text" name="lat" id="lat">
-    <label for="lng">Longitude:</label><input type="text" name="lng" id="lng">
+    <div id="container">
+        <div id="map"></div>
+        <label for="lat">Latitude:</label><input type="text" name="lat" id="lat">
+        <label for="lng">Longitude:</label><input type="text" name="lng" id="lng">
+    </div>
 
     <script src="{{ asset('js/MapsModel.js') }}"></script>
     <script>
