@@ -1,3 +1,4 @@
+
 class MapsHandler {
     constructor(map = null, latInput = document.getElementById("lat"), lngInput = document.getElementById("lng")) {
         this.map = map;
@@ -7,12 +8,15 @@ class MapsHandler {
     }
 
     initialize(callback) {
-        this.latInput.value = 51.10616722826697;
-        this.lngInput.value = 17.07296641485615;
+        const initialCoordinates = new Coordinates();
+
+        this.latInput.value = initialCoordinates.lat;
+        this.lngInput.value = initialCoordinates.lng;
 
         const mapOptions = {
-            center: new google.maps.LatLng(this.latInput.value, this.lngInput.value),
+            center: new google.maps.LatLng(initialCoordinates.lat, initialCoordinates.lng),
             zoom: 15,
+            // Asegúrate de que mapStyle esté definido o disponible en tu proyecto
             styles: mapStyle,
             disableDefaultUI: true,
             scrollwheel: false,
@@ -29,13 +33,12 @@ class MapsHandler {
 
         this.map.addListener('wheel', (event) => {
             event.preventDefault();
-            this.zoomMap(event);
         });
 
         this.map.addListener('center_changed', () => {
             let center = this.map.getCenter();
             this.marker.setPosition(center);
-            this.updateInputs(center.lat(), center.lng());
+            this.updateInputs(new Coordinates(center.lat(), center.lng()));
         });
 
         this.map.addListener('click', (event) => {
@@ -45,37 +48,30 @@ class MapsHandler {
         this.latInput.addEventListener("input", () => this.parseMarkerPosition());
         this.lngInput.addEventListener("input", () => this.parseMarkerPosition());
 
-        document.getElementById('copy-coordinates').addEventListener('click', () => this.copyInputs());
+        document.getElementById('copy-coordinates').addEventListener('click', () => this.copyToClipboard());
     }
 
-    updateInputs(lat, lng) {
-        this.latInput.value = lat;
-        this.lngInput.value = lng;
+    updateInputs(coordinates) {
+        this.latInput.value = coordinates.lat;
+        this.lngInput.value = coordinates.lng;
     }
 
-    copyInputs() {
-        const coordinates = `Latitude: ${this.latInput.value}, Longitude: ${this.lngInput.value}`;
-        navigator.clipboard.writeText(coordinates).then(() => {
-            alert('Coordinates copied to clipboard!');
+    copyToClipboard() {
+        const coordinates = new Coordinates(parseFloat(this.latInput.value), parseFloat(this.lngInput.value));
+        const coordinatesString = `{\n lat: ${coordinates.lat},\n lng: ${coordinates.lng} \n}`;
+
+        navigator.clipboard.writeText(coordinatesString).then(() => {
+            console.log('Coordinates copied to clipboard!');
         }).catch(err => {
             console.error('Error copying coordinates to clipboard: ', err);
-            alert('Error copying coordinates to clipboard.');
         });
     }
 
     parseMarkerPosition() {
-        let lat = parseFloat(this.latInput.value);
-        let lng = parseFloat(this.lngInput.value);
-        let position = new google.maps.LatLng(lat, lng);
+        const coordinates = new Coordinates(parseFloat(this.latInput.value), parseFloat(this.lngInput.value));
+        let position = new google.maps.LatLng(coordinates.lat, coordinates.lng);
 
         this.map.setCenter(position);
-    }
-
-    zoomMap(event) {
-        let zoom = this.map.getZoom();
-        zoom += event.deltaY > 0 ? -1 : 1;
-        zoom = Math.max(0, zoom);
-        this.map.setZoom(zoom);
-        this.map.setCenter(this.marker.getPosition());
+        this.marker.setPosition(position);
     }
 }
