@@ -1,20 +1,23 @@
-$map-width: 400px;
-$map-height: 400px;
+$map-width: 40rem;
+$map-height: 40rem;
+$container-padding: 1rem;
 .map-component {
   display: flex;
-  align-items: start;
+  align-items: center;
   gap: 20px;
+  padding: $container-padding;
+  flex-wrap: wrap;
 
   &__coordinates {
     display: flex;
     flex-direction: column;
+    align-self: center;
     gap: 10px;
   }
 
   &__map {
     border-radius: 15px;
     width: $map-width;
-    height: $map-height;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
 
@@ -29,6 +32,4 @@ $map-height: 400px;
     border-radius: 5px;
   }
 }
-body {
-  background: #5eb5e0;
-}
+//boton pqra copiar las corrds

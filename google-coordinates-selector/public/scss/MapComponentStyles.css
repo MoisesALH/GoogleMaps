@@ -1,17 +1,19 @@
 .map-component {
   display: flex;
-  align-items: start;
+  align-items: center;
   gap: 20px;
+  padding: 1rem;
+  flex-wrap: wrap;
 }
 .map-component__coordinates {
   display: flex;
   flex-direction: column;
+  align-self: center;
   gap: 10px;
 }
 .map-component__map {
   border-radius: 15px;
-  width: 400px;
-  height: 400px;
+  width: 40rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 .map-component__label {
@@ -22,10 +24,6 @@
   padding: 5px 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
-}
-
-body {
-  background: #5eb5e0;
 }
 
 /*# sourceMappingURL=MapComponentStyles.css.map */

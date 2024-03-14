@@ -3,35 +3,38 @@ class MapsHandler {
         this.map = map;
         this.latInput = latInput;
         this.lngInput = lngInput;
+        this.marker = null;
     }
 
     initialize(callback) {
-        let marker ;
         this.latInput.value = 51.10616722826697;
         this.lngInput.value = 17.07296641485615;
 
         const mapOptions = {
             center: new google.maps.LatLng(this.latInput.value, this.lngInput.value),
             zoom: 15,
-            styles: mapStyle,
+            styles: mapStyle, // Asegúrate de que mapStyle está definido o elimina esta línea si no usas estilos personalizados
+            disableDefaultUI: true,
+            scrollwheel: false,
+            zoomControl: true,
         };
 
         this.map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
-        marker = new google.maps.Marker({
+        this.marker = new google.maps.Marker({
             position: this.map.getCenter(),
             map: this.map,
             draggable: false
         });
 
-        this.map.addListener('zoom_changed', () => {
-            this.map.setCenter(this.map.getCenter());
+        this.map.addListener('wheel', (event) => {
+            event.preventDefault();
+            this.zoomMap(event);
         });
 
-        // Evento al finalizar arrastre del mapa, para actualizar inputs
-        this.map.addListener( 'center_changed', () => {
+        this.map.addListener('center_changed', () => {
             let center = this.map.getCenter();
-            marker.setPosition(center);
+            this.marker.setPosition(center);
             this.updateInputs(center.lat(), center.lng());
         });
 
@@ -41,11 +44,23 @@ class MapsHandler {
 
         this.latInput.addEventListener("input", () => this.parseMarkerPosition());
         this.lngInput.addEventListener("input", () => this.parseMarkerPosition());
+
+        document.getElementById('copy-coordinates').addEventListener('click', () => this.copyInputs());
     }
 
     updateInputs(lat, lng) {
         this.latInput.value = lat;
         this.lngInput.value = lng;
+    }
+
+    copyInputs() {
+        const coordinates = `Latitude: ${this.latInput.value}, Longitude: ${this.lngInput.value}`;
+        navigator.clipboard.writeText(coordinates).then(() => {
+            alert('Coordinates copied to clipboard!');
+        }).catch(err => {
+            console.error('Error copying coordinates to clipboard: ', err);
+            alert('Error copying coordinates to clipboard.');
+        });
     }
 
     parseMarkerPosition() {
@@ -55,8 +70,15 @@ class MapsHandler {
 
         this.map.setCenter(position);
     }
-}
 
+    zoomMap(event) {
+        let zoom = this.map.getZoom();
+        zoom += event.deltaY > 0 ? -1 : 1;
+        zoom = Math.max(0, zoom);
+        this.map.setZoom(zoom);
+        this.map.setCenter(this.marker.getPosition());
+    }
+}
 
     const mapStyle = [
     {
