@@ -2,11 +2,13 @@ $map-width: 40rem;
 $map-height: 40rem;
 $container-padding: 1rem;
 .map-component {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 20px;
   padding: $container-padding;
   flex-wrap: wrap;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
 
   &__coordinates {
     display: flex;
@@ -27,9 +29,42 @@ $container-padding: 1rem;
   }
 
   &__input {
-    padding: 5px 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 12px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    font-size: 16px;
   }
+
+  &__input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.3);
+  }
+
+  &__input::placeholder {
+    color: #aaa;
+  }
+
+  &__button {
+    padding: 12px 24px;
+    background-color: #14294d;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+  }
+
+  &__button:hover {
+    background-color: #0056b3;
+  }
+
+  &__button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.3);
+  }
+
+
 }
-//boton pqra copiar las corrds

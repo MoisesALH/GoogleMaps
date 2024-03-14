@@ -13,7 +13,7 @@ class MapsHandler {
         const mapOptions = {
             center: new google.maps.LatLng(this.latInput.value, this.lngInput.value),
             zoom: 15,
-            styles: mapStyle, // Asegúrate de que mapStyle está definido o elimina esta línea si no usas estilos personalizados
+            styles: mapStyle,
             disableDefaultUI: true,
             scrollwheel: false,
             zoomControl: true,
