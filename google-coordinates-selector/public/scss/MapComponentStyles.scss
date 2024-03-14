@@ -1,5 +1,5 @@
-$map-width: 200px;
-$map-height: 200px;
+$map-width: 400px;
+$map-height: 400px;
 .map-component {
   display: flex;
   align-items: start;
@@ -14,7 +14,7 @@ $map-height: 200px;
   &__map {
     border-radius: 15px;
     width: $map-width;
-    max-height: $map-height;
+    height: $map-height;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
 
@@ -28,4 +28,7 @@ $map-height: 200px;
     border: 1px solid #ccc;
     border-radius: 5px;
   }
+}
+body {
+  background: #5eb5e0;
 }

@@ -20,6 +20,6 @@
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "build": "encore production --progress",
-        "compile-scss": "sass --watch assets/scss:public/css"
+        "compile-scss": "sass --watch assets/styles/scss:public/scss"
     }
 }
